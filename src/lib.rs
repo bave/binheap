@@ -67,6 +67,11 @@ impl<T: Ord> BinHeap<T>
         self.into()
     }
 
+    pub fn capacity(&self) -> usize
+    {
+        self.vec.capacity()
+    }
+
     pub fn push(&mut self, entry: T)
     {
         let len = self.len();
@@ -276,6 +281,24 @@ mod tests {
         assert_eq!(bh.pop(), Some(1));
         assert_eq!(bh.pop(), None);
         Ok(())
+    }
+
+    #[test]
+    fn test_wth_capacity() -> Result<(), String> {
+        let bh = BinHeap::with_capacity(1000) as BinHeap<u64>;
+        assert_eq!(bh.capacity(), 1000);
+
+        fn cmp(a: &u64, b: &u64) -> bool {
+            if a.cmp(b) == std::cmp::Ordering::Greater {
+                true
+            } else {
+                false
+            }
+        }
+        let bh2 = BinHeap::with_capacity_cmp(1000, cmp) as BinHeap<u64>;
+        assert_eq!(bh2.capacity(), 1000);
+        Ok(())
+
     }
 
     #[test]
