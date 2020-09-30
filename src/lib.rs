@@ -22,10 +22,32 @@ impl<T: Ord> BinHeap<T>
         }       
     }
 
-    pub fn new_with_cmp(f: fn(&T, &T) -> bool) -> Self
+    pub fn new_cmp(f: fn(&T, &T) -> bool) -> Self
     {
         BinHeap {
             vec: Vec::new(),
+            cmp: f
+        }       
+    }
+
+    pub fn with_capacity(cap: usize) -> Self
+    {
+        BinHeap {
+            vec: Vec::with_capacity(cap),
+            cmp: |a, b| { 
+                if a.cmp(b) == std::cmp::Ordering::Less {
+                    true
+                } else {
+                    false
+                }
+            }
+        }       
+    }
+
+    pub fn with_capacity_cmp(cap: usize, f: fn(&T, &T) -> bool) -> Self
+    {
+        BinHeap {
+            vec: Vec::with_capacity(cap),
             cmp: f
         }       
     }
@@ -235,7 +257,7 @@ mod tests {
                 false
             }
         }
-        let mut bh = BinHeap::new_with_cmp(cmp) as BinHeap<u64>;
+        let mut bh = BinHeap::new_cmp(cmp) as BinHeap<u64>;
         bh.push(8);
         bh.push(7);
         bh.push(6);
