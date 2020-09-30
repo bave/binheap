@@ -54,7 +54,7 @@ fn main() {
         }
     }
     print!("\nmax-heap\n");
-    let mut bh = binheap::BinHeap::new_with_cmp(is_greater) as binheap::BinHeap<u64>;
+    let mut bh = binheap::BinHeap::new_cmp(is_greater) as binheap::BinHeap<u64>;
     for i in vec![1,8,2,7,3,6,4,5] {
         bh.push(i);
     }
