@@ -1,4 +1,5 @@
 # binheap
+![Rust](https://github.com/bave/binheap/workflows/Rust/badge.svg)
 
 binheap (rust library test)
 
